@@ -12,6 +12,106 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+  <!-- Pre-alpha modal "custom alert" -->
+<div id="prealphaModalOverlay" class="modal-overlay" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="prealphaTitle">
+    <h2 id="prealphaTitle">hey there,</h2>
+    <p>
+      this website is nothing more than a mess or, in a more professional manner,
+      <em>is in its pre-alpha stage</em>.
+    </p>
+    <p>please do not judge and yes the website is made with the help of co pilot :)</p>
+
+    <div class="modal-actions">
+      <button id="prealphaOkBtn" type="button">OK</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 9999;
+  }
+  .modal-overlay.is-open { display: flex; }
+
+  .modal {
+    width: min(520px, 100%);
+    background: #111;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 18px 18px 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  .modal h2 {
+    margin: 0 0 10px;
+    font-size: 20px;
+    letter-spacing: 0.2px;
+  }
+  .modal p { margin: 8px 0; line-height: 1.45; }
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+  .modal-actions button {
+    cursor: pointer;
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    background: #4f46e5;
+    color: white;
+    font-weight: 600;
+  }
+  .modal-actions button:focus { outline: 2px solid #93c5fd; outline-offset: 2px; }
+</style>
+
+<script>
+  (function () {
+    const overlay = document.getElementById('prealphaModalOverlay');
+    const okBtn = document.getElementById('prealphaOkBtn');
+
+    // show on load (only once per browser via localStorage)
+    const key = 'prealphaModalSeen';
+    const alreadySeen = localStorage.getItem(key) === '1';
+
+    function openModal() {
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      okBtn.focus();
+    }
+
+    function closeModal() {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      localStorage.setItem(key, '1');
+    }
+
+    okBtn.addEventListener('click', closeModal);
+
+    // close when clicking outside the dialog
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeModal();
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+    });
+
+    window.addEventListener('load', () => {
+      if (!alreadySeen) openModal();
+    });
+  })();
+</script>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
