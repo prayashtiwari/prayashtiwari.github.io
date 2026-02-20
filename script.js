@@ -1,5 +1,4 @@
 //POP-UP SCRIPT
-<script>
 (function () {
 const overlay = document.getElementById('prealphaModalOverlay');
 const okBtn = document.getElementById('prealphaOkBtn');
@@ -36,7 +35,6 @@ window.addEventListener('load', () => {
 if (!alreadySeen) openModal();
 });
 })();
-</script>
 
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
