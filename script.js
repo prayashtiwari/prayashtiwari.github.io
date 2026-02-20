@@ -1,3 +1,43 @@
+//POP-UP SCRIPT
+<script>
+(function () {
+const overlay = document.getElementById('prealphaModalOverlay');
+const okBtn = document.getElementById('prealphaOkBtn');
+
+// show on load (only once per browser via localStorage)
+const key = 'prealphaModalSeen';
+const alreadySeen = localStorage.getItem(key) === '1';
+
+function openModal() {
+overlay.classList.add('is-open');
+overlay.setAttribute('aria-hidden', 'false');
+okBtn.focus();
+}
+
+function closeModal() {
+overlay.classList.remove('is-open');
+overlay.setAttribute('aria-hidden', 'true');
+localStorage.setItem(key, '1');
+}
+
+okBtn.addEventListener('click', closeModal);
+
+// close when clicking outside the dialog
+overlay.addEventListener('click', (e) => {
+if (e.target === overlay) closeModal();
+});
+
+// close on Escape
+document.addEventListener('keydown', (e) => {
+if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeModal();
+});
+
+window.addEventListener('load', () => {
+if (!alreadySeen) openModal();
+});
+})();
+</script>
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
